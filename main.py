@@ -25,9 +25,8 @@ while True:
         dest_dir = values["folder"]
         extract_archive(archivepath, dest_dir)
         window["output"].update(value = f"Successfully extracted to {dest_dir}")
-    except AttributeError:
+    except (AttributeError,TypeError) :
+        sg.WINDOW_CLOSED
         break
 
-
-window.read()
 window.close()
