@@ -7,7 +7,7 @@ label1 = sg.Text("Select archive")
 input1 = sg.Input()
 choose_button = sg.FileBrowse("Choose", key="archive")
 
-label2 = sg.Text("Select archive")
+label2 = sg.Text("Select destination")
 input2 = sg.Input()
 choose_button2 = sg.FolderBrowse("Choose", key="folder")
 
@@ -19,11 +19,14 @@ window = sg.Window("Archive Extractor", layout =[[label1, input1, choose_button]
                                          [extract_button, output_label]])
 
 while True:
-    event, values = window.read()
-    archivepath = values["archive"]
-    dest_dir = values["folder"]
-    extract_archive(archivepath, dest_dir)
-    window["output"].update(value = f"Succefully extracted to {dest_dir}")
+    try:
+        event, values = window.read()
+        archivepath = values["archive"]
+        dest_dir = values["folder"]
+        extract_archive(archivepath, dest_dir)
+        window["output"].update(value = f"Successfully extracted to {dest_dir}")
+    except AttributeError:
+        break
 
 
 window.read()
